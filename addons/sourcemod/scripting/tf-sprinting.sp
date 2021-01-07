@@ -25,15 +25,6 @@
 
 #define SOUND_SPRINT_START	"player/suit_sprint.wav"
 
-public Plugin myinfo = 
-{
-	name = "TF2 Sprinting", 
-	author = "Mikusch", 
-	description = "Allows players to sprint using +speed", 
-	version = "v1.0", 
-	url = "https://github.com/Mikusch/tf-sprinting"
-}
-
 ConVar tf_sprint_enabled;
 ConVar tf_sprint_speedmultiplier;
 ConVar sv_stickysprint;
@@ -43,6 +34,15 @@ Handle g_SDKCallSetSpeed;
 bool g_IsAutoSprinting[MAXPLAYERS + 1];
 float g_AutoSprintMinTime[MAXPLAYERS + 1];
 bool g_IsSprinting[MAXPLAYERS + 1];
+
+public Plugin myinfo = 
+{
+	name = "TF2 Sprinting", 
+	author = "Mikusch", 
+	description = "Allows players to sprint using +speed", 
+	version = "v1.0", 
+	url = "https://github.com/Mikusch/tf-sprinting"
+}
 
 public void OnPluginStart()
 {
@@ -124,14 +124,6 @@ public MRESReturn DHookCallback_TeamFortress_CalculateMaxSpeed_Post(int client, 
 	return MRES_Ignored;
 }
 
-void TeamFortress_SetSpeed(int client)
-{
-	if (g_SDKCallSetSpeed)
-	{
-		SDKCall(g_SDKCallSetSpeed, client);
-	}
-}
-
 public void SDKHookCB_ClientPreThink(int client)
 {
 	HandleSpeedChanges(client);
@@ -166,6 +158,14 @@ public void SDKHookCB_ClientPreThink(int client)
 		{
 			StopSprinting(client);
 		}
+	}
+}
+
+void TeamFortress_SetSpeed(int client)
+{
+	if (g_SDKCallSetSpeed)
+	{
+		SDKCall(g_SDKCallSetSpeed, client);
 	}
 }
 
