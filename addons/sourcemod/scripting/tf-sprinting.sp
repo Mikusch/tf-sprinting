@@ -39,7 +39,7 @@ public Plugin myinfo =
 	name = "TF2 Sprinting", 
 	author = "Mikusch", 
 	description = "Allows players to sprint using +speed", 
-	version = "v1.0", 
+	version = "1.0.0", 
 	url = "https://github.com/Mikusch/tf-sprinting"
 }
 
