@@ -39,7 +39,7 @@ public Plugin myinfo =
 	name = "TF2 Sprinting", 
 	author = "Mikusch", 
 	description = "Allows players to sprint using +speed", 
-	version = "1.0.0", 
+	version = "1.0.1", 
 	url = "https://github.com/Mikusch/tf-sprinting"
 }
 
@@ -125,6 +125,13 @@ public MRESReturn DHookCallback_TeamFortress_CalculateMaxSpeed_Post(int client, 
 
 public void SDKHookCB_ClientPreThink(int client)
 {
+	// If we're dead, we can't sprint
+	if (!IsPlayerAlive(client))
+	{
+		StopSprinting(client);
+		return;
+	}
+	
 	HandleSpeedChanges(client);
 	
 	if (sv_stickysprint.BoolValue && g_IsAutoSprinting[client])
